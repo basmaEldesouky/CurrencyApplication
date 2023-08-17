@@ -14,3 +14,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CurrencyApplication"
 include ':app'
+include ':base'
+include ':common'
+include ':data'
+include ':domain'
+include ':presentation'
+include ':local'
+include ':remote'
