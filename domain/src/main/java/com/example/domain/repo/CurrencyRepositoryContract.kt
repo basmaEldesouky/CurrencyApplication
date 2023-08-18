@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface CurrencyRepositoryContract {
 
     suspend fun getSymbols(): Flow<Symbols>
-    suspend fun getHistoricalData(): Flow<HistoricalData>
-    suspend fun getLatestRates(): Flow<LatestRate>
+    suspend fun getHistoricalData(date: String, base: String, symbols: List<String>): Flow<HistoricalData>
+    suspend fun getLatestRates(base: String, symbols: List<String>): Flow<LatestRate>
 }

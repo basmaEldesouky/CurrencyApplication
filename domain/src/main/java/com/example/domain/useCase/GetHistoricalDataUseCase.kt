@@ -5,7 +5,7 @@ import com.example.domain.repo.CurrencyRepositoryContract
 import kotlinx.coroutines.flow.Flow
 
 class GetHistoricalDataUseCase(private val repository: CurrencyRepositoryContract) {
-    suspend fun invoke(): Flow<HistoricalData> {
-        return repository.getHistoricalData()
+    suspend fun invoke(date: String, base: String, symbols: List<String>): Flow<HistoricalData> {
+        return repository.getHistoricalData(date, base, symbols)
     }
 }
