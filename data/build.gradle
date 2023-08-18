@@ -41,9 +41,20 @@ dependencies {
     api "androidx.core:core-ktx:$androidx_core_ktx"
     api "androidx.appcompat:appcompat:$androidx_appcompat"
 
-    // Hilt dependencies
+    // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //okhttp
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_interceptor"
+
+    //retrofit
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_adapter_rxjava2"
+    api "com.squareup.retrofit2:converter-gson:$retrofit2_converter_gson"
+    api "com.squareup.retrofit2:retrofit:$retrofit2_retrofit"
+    //coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_android"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_core"
 
     // for implement testing libraries
     testImplementation project.unitTestDependencies

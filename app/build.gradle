@@ -57,8 +57,6 @@ dependencies {
     implementation project(":common")
     implementation project(":domain")
     implementation project(":data")
-    implementation project(":remote")
-    implementation project(":local")
     implementation project(":presentation")
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
