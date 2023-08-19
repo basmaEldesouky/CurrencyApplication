@@ -10,16 +10,16 @@ import retrofit2.http.Query
 interface RemoteServices {
 
     @GET("symbols")
-    suspend fun getSymbols(@Query("access_key") access_key: Long): Symbols
+    suspend fun getSymbols(@Query("access_key") access_key: String): Symbols
 
     @GET("{date}")
     suspend fun getHistoricalData(@Path("date") date: String,
-                                  @Query("access_key") access_key: Long,
+                                  @Query("access_key") access_key: String,
                                   @Query("base") base: String,
                                   @Query("symbols") symbols: List<String>): HistoricalData
 
     @GET("latest")
-    suspend fun getLatestRates(@Query("access_key") access_key: Long,
+    suspend fun getLatestRates(@Query("access_key") access_key: String,
                                @Query("base") base: String,
                                @Query("symbols") symbols: List<String>): LatestRate
 }

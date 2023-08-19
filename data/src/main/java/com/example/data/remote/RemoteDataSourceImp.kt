@@ -9,20 +9,20 @@ import javax.inject.Inject
 class RemoteDataSourceImp @Inject constructor(private val remoteServices: RemoteServices):
     RemoteDataSourceContract {
 
-    override suspend fun getSymbols(apiKey: Long): Symbols {
+    override suspend fun getSymbols(apiKey: String): Symbols {
        return remoteServices.getSymbols(apiKey)
     }
 
     override suspend fun getHistoricalData(
         date: String,
-        apiKey: Long,
+        apiKey: String,
         base: String,
         symbols: List<String>
     ): HistoricalData {
         return remoteServices.getHistoricalData(date, apiKey, base, symbols)
     }
 
-    override suspend fun getLatestRates(apiKey: Long, base: String, symbols: List<String>): LatestRate {
+    override suspend fun getLatestRates(apiKey: String, base: String, symbols: List<String>): LatestRate {
         return remoteServices.getLatestRates(apiKey, base, symbols)
     }
 }
