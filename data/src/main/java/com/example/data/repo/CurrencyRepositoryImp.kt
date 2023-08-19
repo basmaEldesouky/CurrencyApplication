@@ -1,5 +1,6 @@
 package com.example.data.repo
 
+import com.example.common.Resource
 import com.example.data.BuildConfig
 import com.example.data.remote.RemoteDataSourceContract
 import com.example.data.remote.RemoteServices
@@ -13,10 +14,14 @@ import javax.inject.Inject
 
 class CurrencyRepositoryImp @Inject constructor(private val remoteDataSource: RemoteDataSourceContract): CurrencyRepositoryContract {
 
-    override suspend fun getSymbols(): Flow<Symbols> {
+    override suspend fun getSymbols(): Flow<Resource<Symbols>> {
         return flow {
-            val symbolsData = remoteDataSource.getSymbols(BuildConfig.API_KEY)
-            emit(symbolsData)
+            try {
+                val symbolsData = remoteDataSource.getSymbols(BuildConfig.API_KEY)
+                emit(Resource.Success(symbolsData))
+            } catch (ex1: Exception) {
+                emit(Resource.Error(ex1))
+            }
         }
     }
 
@@ -24,17 +29,27 @@ class CurrencyRepositoryImp @Inject constructor(private val remoteDataSource: Re
         date: String,
         base: String,
         symbols: List<String>
-    ): Flow<HistoricalData> {
+    ): Flow<Resource<HistoricalData>> {
         return flow {
-            val historicalData = remoteDataSource.getHistoricalData(date, BuildConfig.API_KEY, base, symbols)
-            emit(historicalData)
+            try {
+                val historicalData =
+                    remoteDataSource.getHistoricalData(date, BuildConfig.API_KEY, base, symbols)
+                emit(Resource.Success(historicalData))
+            } catch (ex1: Exception) {
+                emit(Resource.Error(ex1))
+            }
         }
     }
 
-    override suspend fun getLatestRates(base: String, symbols: List<String>): Flow<LatestRate> {
+    override suspend fun getLatestRates(base: String, symbols: List<String>): Flow<Resource<LatestRate>> {
         return flow {
-            val latestRatesData = remoteDataSource.getLatestRates(BuildConfig.API_KEY, base, symbols)
-            emit(latestRatesData)
+            try {
+                val latestRatesData = remoteDataSource.getLatestRates(BuildConfig.API_KEY, base, symbols)
+                emit(Resource.Success(latestRatesData))
+            } catch (ex1: Exception) {
+                emit(Resource.Error(ex1))
+            }
+
         }
     }
 }
