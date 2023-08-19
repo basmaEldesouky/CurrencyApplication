@@ -5,6 +5,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".MyApp"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +15,7 @@
         android:theme="@style/Theme.CurrencyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.presentation.currencyConversion.CurrencyConversionActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CurrencyApplication">
@@ -24,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.presentation.currencyRates.CurrencyRatesActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.presentation.currencyConversion.CurrencyConversionActivity" />
     </application>
 
 </manifest>

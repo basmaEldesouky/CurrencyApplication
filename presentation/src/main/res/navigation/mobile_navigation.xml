@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/currency_conversion_activity">
 
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.presentation.currencyConversion.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/currency_conversion_activity"
+        android:name="com.example.presentation.currencyConversion.CurrencyConversionActivity"
+        android:label="CurrencyConversionActivity"
+        tools:layout="@layout/activity_currency_conversion" >
 
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.presentation.currencyConversion.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        <action
+            android:id="@+id/action_currency_conversion_activity_to_currency_rates_activity"
+            app:destination="@id/currency_rates_activity" />
+    </activity>
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.presentation.currencyConversion.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+    <activity
+        android:id="@+id/currency_rates_activity"
+        android:name="com.example.presentation.currencyRates.CurrencyRatesActivity"
+        android:label="CurrencyRatesActivity"
+        tools:layout="@layout/activity_currency_rates" />
+
 </navigation>
