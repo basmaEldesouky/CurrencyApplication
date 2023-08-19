@@ -6,141 +6,152 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/currency_converter"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/tvFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/from"
-        app:layout_constraintStart_toStartOf="@+id/fromCurrencyDropdown"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/currency_converter"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to"
-        app:layout_constraintStart_toStartOf="@+id/toCurrencyDropdown"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/tvFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from"
+            app:layout_constraintStart_toStartOf="@+id/fromCurrencyDropdown"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
+        <TextView
+            android:id="@+id/tvTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to"
+            app:layout_constraintStart_toStartOf="@+id/toCurrencyDropdown"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <Spinner
-        android:id="@+id/fromCurrencyDropdown"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:entries="@array/currency_codes"
-        android:padding="15dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="18dp"
-        android:textSize="14sp"
-        android:hint="@string/from"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/switchBtn"
-        app:layout_constraintTop_toBottomOf="@+id/tvFrom"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.27" />
 
-
-    <ImageButton
-        android:id="@+id/switchBtn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/arrow_range_48px"
-        android:contentDescription="to switch currencies"
-        app:layout_constraintStart_toEndOf="@+id/fromCurrencyDropdown"
-        app:layout_constraintEnd_toStartOf="@+id/toCurrencyDropdown"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"/>
-
-    <Spinner
-        android:id="@+id/toCurrencyDropdown"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:entries="@array/currency_codes"
-        android:padding="15dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="18dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/switchBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTo"/>
+        <Spinner
+            android:id="@+id/fromCurrencyDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/currency_codes"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="18dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/switchBtn"
+            app:layout_constraintTop_toBottomOf="@+id/tvFrom"/>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fromAmountLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/toAmountLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromCurrencyDropdown">
+        <ImageButton
+            android:id="@+id/switchBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/arrow_range_48px"
+            android:contentDescription="to switch currencies"
+            app:layout_constraintStart_toEndOf="@+id/fromCurrencyDropdown"
+            app:layout_constraintEnd_toStartOf="@+id/toCurrencyDropdown"
+            app:layout_constraintTop_toBottomOf="@+id/guideline"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fromAmountET"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:digits="1234567890."
-            android:gravity="center_vertical"
-            android:inputType="number"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="1"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <Spinner
+            android:id="@+id/toCurrencyDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/currency_codes"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="18dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/switchBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTo"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/toAmountLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fromAmountLayout"
-        app:layout_constraintTop_toBottomOf="@+id/toCurrencyDropdown">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/toAmountET"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:digits="1234567890."
-            android:gravity="center_vertical"
-            android:inputType="number"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fromAmountLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/toAmountLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fromCurrencyDropdown">
 
-    <Button
-        android:id="@+id/detailsBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginHorizontal="18dp"
-        android:text="@string/details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toAmountLayout" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fromAmountET"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:digits="1234567890."
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/_1"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/toAmountLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="converted value text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fromAmountLayout"
+            app:layout_constraintTop_toBottomOf="@+id/toCurrencyDropdown">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/toAmountET"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:digits="1234567890."
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/detailsBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="18dp"
+            android:text="@string/details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toAmountLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/loading_layout"

@@ -9,7 +9,8 @@ class TestDataGenerator {
         const val date = "2023-08-18"
         const val apiKey = "123456789123456789123456789123456789"
         const val base = "EUR"
-        val currencyList = listOf("USD", "EGP")
+        const val currencyList = "USD,EGP"
+        const val format = 1
 
         fun generateHistoricalData(): HistoricalData {
             return HistoricalData(

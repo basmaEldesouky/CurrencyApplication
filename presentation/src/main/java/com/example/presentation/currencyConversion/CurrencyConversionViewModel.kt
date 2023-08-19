@@ -2,10 +2,10 @@ package com.example.presentation.currencyConversion
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.common.Constants
 import com.example.common.Resource
 import com.example.domain.entity.RatesX
 import com.example.domain.useCase.GetLatestRatesUseCase
-import com.example.domain.useCase.GetSymbolsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,10 +30,10 @@ class CurrencyConversionViewModel @Inject constructor(
     val conversion: StateFlow<CurrencyEvent> = _conversion
 
 
-     fun getCurrencyRates(fromAmount: String, fromCurrency: String, toCurrency: List<String>){
+     fun getCurrencyRates(fromAmount: String, fromCurrency: String, toCurrency: String){
         viewModelScope.launch {
             try {
-                getLatestRatesUseCase.invoke(fromCurrency, toCurrency)
+                getLatestRatesUseCase.invoke(fromCurrency, toCurrency, Constants.format)
                     .onStart { emit(Resource.Loading) }
                     .collect {
                         when (it) {
@@ -41,7 +41,7 @@ class CurrencyConversionViewModel @Inject constructor(
                                 _conversion.value = CurrencyEvent.Loading
                             }
                             is Resource.Success -> {
-                                val rates = it.data!!.rates
+                                val rates = it.data.rates
                                 val rate = getRateForCurrency(toCurrency, rates)
                                 if(rate == null) {
                                     _conversion.value = CurrencyEvent.Failure("Unexpected error")
@@ -63,7 +63,7 @@ class CurrencyConversionViewModel @Inject constructor(
         }
     }
 
-    private fun getRateForCurrency(currency: List<String>, rates: RatesX): Double? {
+    private fun getRateForCurrency(currency: String, rates: RatesX): Double? {
         val exchangeRateMap = mapOf(
              "AED" to rates.AED, "AFN" to rates.AFN, "ALL" to rates.ALL, "AMD" to rates.AMD, "ANG" to rates.ANG, "AOA" to rates.AOA,
              "ARS" to rates.ARS, "AUD" to rates.AUD, "AWG" to rates.AWG, "AZN" to rates.AZN, "BAM" to rates.BAM, "BBD" to rates.BBD,
@@ -96,8 +96,10 @@ class CurrencyConversionViewModel @Inject constructor(
              "ZMK" to rates.ZMK, "ZMW" to rates.ZMW, "ZWL" to rates.ZWL
         )
 
-        val firstRate = exchangeRateMap[currency[0]]
-        val secondRate = exchangeRateMap[currency[1]]
+        val symbol = currency.split(",")
+
+        val firstRate = exchangeRateMap[symbol[0]]
+        val secondRate = exchangeRateMap[symbol[1]]
         return firstRate?.let { 1 / it.times(secondRate!!) }
     }
 

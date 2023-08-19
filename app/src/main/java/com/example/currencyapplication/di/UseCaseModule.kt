@@ -3,7 +3,6 @@ package com.example.currencyapplication.di
 import com.example.domain.repo.CurrencyRepositoryContract
 import com.example.domain.useCase.GetHistoricalDataUseCase
 import com.example.domain.useCase.GetLatestRatesUseCase
-import com.example.domain.useCase.GetSymbolsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,14 +12,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object UseCaseModule {
-
-    @Singleton
-    @Provides
-    fun provideGetSymbolsUseCase(
-        currencyRepository: CurrencyRepositoryContract
-    ): GetSymbolsUseCase =
-        GetSymbolsUseCase(currencyRepository)
-
 
     @Singleton
     @Provides

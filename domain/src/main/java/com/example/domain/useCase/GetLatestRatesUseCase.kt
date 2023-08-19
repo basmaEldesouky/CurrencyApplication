@@ -6,7 +6,7 @@ import com.example.domain.repo.CurrencyRepositoryContract
 import kotlinx.coroutines.flow.Flow
 
 class GetLatestRatesUseCase(private val repository: CurrencyRepositoryContract) {
-    suspend fun invoke(base: String, symbols: List<String>): Flow<Resource<LatestRate>> {
-        return repository.getLatestRates(base, symbols)
+    suspend fun invoke(base: String, symbols: String, format: Int): Flow<Resource<LatestRate>> {
+        return repository.getLatestRates(base, symbols, format)
     }
 }

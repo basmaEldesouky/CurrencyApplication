@@ -45,11 +45,15 @@ class RepositoryImpTest {
         coEvery { remoteDataSource.getHistoricalData(TestDataGenerator.date,
             TestDataGenerator.apiKey,
             TestDataGenerator.base,
-            TestDataGenerator.currencyList)
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         } returns historicalData
 
         // When & Assertions
-        val flow = repository.getHistoricalData(TestDataGenerator.date, TestDataGenerator.base, TestDataGenerator.currencyList)
+        val flow = repository.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         flow.test {
             // Expect Resource.Success
             val expected = expectItem()
@@ -60,7 +64,11 @@ class RepositoryImpTest {
         }
 
         // Then
-        coVerify { remoteDataSource.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteDataSource.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
     }
 
 
@@ -70,11 +78,13 @@ class RepositoryImpTest {
         coEvery { remoteDataSource.getHistoricalData(TestDataGenerator.date,
             TestDataGenerator.apiKey,
             TestDataGenerator.base,
-            TestDataGenerator.currencyList)
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         } throws Exception()
 
         // When && Assertions
-        val flow = repository.getHistoricalData(TestDataGenerator.date, TestDataGenerator.base, TestDataGenerator.currencyList)
+        val flow = repository.getHistoricalData(TestDataGenerator.date, TestDataGenerator.base, TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         flow.test {
             // Expect Resource.Error
             Truth.assertThat(expectItem()).isInstanceOf(Resource.Error::class.java)
@@ -82,7 +92,11 @@ class RepositoryImpTest {
         }
 
         // Then
-        coVerify { remoteDataSource.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteDataSource.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
     }
 
 
@@ -91,10 +105,15 @@ class RepositoryImpTest {
         val latestRates = TestDataGenerator.generateLatestRates()
 
         // Given
-        coEvery { remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) } returns latestRates
+        coEvery { remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) } returns latestRates
 
         // When & Assertions
-        val flow = repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList)
+        val flow = repository.getLatestRates(TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         flow.test {
             // Expect Resource.Success
             val expected = expectItem()
@@ -105,7 +124,10 @@ class RepositoryImpTest {
         }
 
         // Then
-        coVerify { remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
     }
 
 
@@ -113,10 +135,15 @@ class RepositoryImpTest {
     fun test_error_state_when_remote_fail_of_getting_challenge_latest_rates() =
         runBlockingTest {
             // Given
-            coEvery { remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) } throws Exception()
+            coEvery { remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+                TestDataGenerator.base,
+                TestDataGenerator.currencyList,
+                TestDataGenerator.format) } throws Exception()
 
             // When && Assertions
-            val flow = repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList)
+            val flow = repository.getLatestRates(TestDataGenerator.base,
+                TestDataGenerator.currencyList,
+                TestDataGenerator.format)
             flow.test {
                 // Expect Resource.Error
                 Truth.assertThat(expectItem()).isInstanceOf(Resource.Error::class.java)
@@ -124,6 +151,9 @@ class RepositoryImpTest {
             }
 
             // Then
-            coVerify { remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+            coVerify { remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+                TestDataGenerator.base,
+                TestDataGenerator.currencyList,
+                TestDataGenerator.format) }
         }
 }

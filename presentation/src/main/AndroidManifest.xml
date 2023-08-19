@@ -8,7 +8,6 @@
             android:exported="false"
             android:label="@string/title_activity_currency_rates"
             android:resizeableActivity="true"
-            android:theme="@style/Theme.CurrencyApplication.NoActionBar"
             tools:targetApi="24" />
         <activity
             android:name=".currencyConversion.CurrencyConversionActivity"

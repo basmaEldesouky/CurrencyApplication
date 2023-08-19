@@ -43,10 +43,10 @@ class GetLatestRatesUseCaseTest {
         val latestRatesFlow = flowOf(Resource.Success(latestRates))
 
         // Given
-        coEvery { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList) } returns latestRatesFlow
+        coEvery { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) } returns latestRatesFlow
 
         // When & Assertions
-        val result = getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList)
+        val result = getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format)
         result.test {
             // Expect Resource.Success
             val expected = expectItem()
@@ -57,7 +57,7 @@ class GetLatestRatesUseCaseTest {
         }
 
         // Then
-        coVerify { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) }
     }
 
 
@@ -67,10 +67,10 @@ class GetLatestRatesUseCaseTest {
         val errorFlow = flowOf(Resource.Error(Exception()))
 
         // Given
-        coEvery { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList) } returns errorFlow
+        coEvery { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) } returns errorFlow
 
         // When & Assertions
-        val result = getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList)
+        val result = getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format)
         result.test {
             // Expect Resource.Error
             Truth.assertThat(expectItem()).isInstanceOf(Resource.Error::class.java)
@@ -78,6 +78,6 @@ class GetLatestRatesUseCaseTest {
         }
 
         // Then
-        coVerify { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { repository.getLatestRates(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) }
     }
 }

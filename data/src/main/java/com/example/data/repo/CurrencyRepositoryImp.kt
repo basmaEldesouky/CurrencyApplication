@@ -1,7 +1,7 @@
 package com.example.data.repo
 
-import com.example.common.Resource
 import com.example.data.BuildConfig
+import com.example.common.Resource
 import com.example.domain.dataSource.RemoteDataSourceContract
 import com.example.domain.entity.HistoricalData
 import com.example.domain.entity.LatestRate
@@ -13,26 +13,16 @@ import javax.inject.Inject
 
 class CurrencyRepositoryImp @Inject constructor(private val remoteDataSource: RemoteDataSourceContract): CurrencyRepositoryContract {
 
-    override suspend fun getSymbols(): Flow<Resource<Symbols>> {
-        return flow {
-            try {
-                val symbolsData = remoteDataSource.getSymbols(BuildConfig.API_KEY)
-                emit(Resource.Success(symbolsData))
-            } catch (ex1: Exception) {
-                emit(Resource.Error(ex1))
-            }
-        }
-    }
-
     override suspend fun getHistoricalData(
         date: String,
         base: String,
-        symbols: List<String>
+        symbols: String,
+        format: Int
     ): Flow<Resource<HistoricalData>> {
         return flow {
             try {
                 val historicalData =
-                    remoteDataSource.getHistoricalData(date, BuildConfig.API_KEY, base, symbols)
+                    remoteDataSource.getHistoricalData(date, BuildConfig.API_KEY, base, symbols, format)
                 emit(Resource.Success(historicalData))
             } catch (ex1: Exception) {
                 emit(Resource.Error(ex1))
@@ -40,10 +30,10 @@ class CurrencyRepositoryImp @Inject constructor(private val remoteDataSource: Re
         }
     }
 
-    override suspend fun getLatestRates(base: String, symbols: List<String>): Flow<Resource<LatestRate>> {
+    override suspend fun getLatestRates(base: String, symbols: String, format: Int): Flow<Resource<LatestRate>> {
         return flow {
             try {
-                val latestRatesData = remoteDataSource.getLatestRates(BuildConfig.API_KEY, base, symbols)
+                val latestRatesData = remoteDataSource.getLatestRates(BuildConfig.API_KEY, base, symbols, format)
                 emit(Resource.Success(latestRatesData))
             } catch (ex1: Exception) {
                 emit(Resource.Error(ex1))

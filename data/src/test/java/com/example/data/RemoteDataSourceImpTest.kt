@@ -40,14 +40,23 @@ class RemoteDataSourceImpTest {
         coEvery { remoteServices.getHistoricalData(TestDataGenerator.date,
             TestDataGenerator.apiKey,
             TestDataGenerator.base,
-            TestDataGenerator.currencyList)
+            TestDataGenerator.currencyList
+            , TestDataGenerator.format)
         } returns historicalDataResponse
 
         // When
-        val result = remoteDataSource.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList)
+        val result = remoteDataSource.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
 
         // Then
-        coVerify { remoteServices.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteServices.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
 
         // Assertion
         val expected = historicalDataResponse
@@ -61,14 +70,23 @@ class RemoteDataSourceImpTest {
         coEvery { remoteServices.getHistoricalData(TestDataGenerator.date,
             TestDataGenerator.apiKey,
             TestDataGenerator.base,
-            TestDataGenerator.currencyList)
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
         } throws Exception()
 
         // When
-        remoteDataSource.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList)
+        remoteDataSource.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
 
         // Then
-        coVerify { remoteServices.getHistoricalData(TestDataGenerator.date, TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteServices.getHistoricalData(TestDataGenerator.date,
+            TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
 
     }
 
@@ -77,13 +95,22 @@ class RemoteDataSourceImpTest {
 
         val latestRatesResponse = TestDataGenerator.generateLatestRates()
         // Given
-        coEvery { remoteServices.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) } returns latestRatesResponse
+        coEvery { remoteServices.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) } returns latestRatesResponse
 
         // When
-        val result = remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList)
+        val result = remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
 
         // Then
-        coVerify { remoteServices.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteServices.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
 
         // Assertion
         val expected = latestRatesResponse
@@ -94,13 +121,22 @@ class RemoteDataSourceImpTest {
     fun test_get_latest_rates_fail() = runBlockingTest {
 
         // Given
-        coEvery { remoteServices.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) } throws Exception()
+        coEvery { remoteServices.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) } throws Exception()
 
         // When
-        remoteDataSource.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList)
+        remoteDataSource.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format)
 
         // Then
-        coVerify { remoteServices.getLatestRates(TestDataGenerator.apiKey, TestDataGenerator.base, TestDataGenerator.currencyList) }
+        coVerify { remoteServices.getLatestRates(TestDataGenerator.apiKey,
+            TestDataGenerator.base,
+            TestDataGenerator.currencyList,
+            TestDataGenerator.format) }
 
     }
 }
