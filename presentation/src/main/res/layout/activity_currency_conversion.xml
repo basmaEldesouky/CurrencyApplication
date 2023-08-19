@@ -7,40 +7,54 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:gravity="center"
         android:text="@string/currency_converter"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fromCurrencyLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <TextView
+        android:id="@+id/tvFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/from"
+        app:layout_constraintStart_toStartOf="@+id/fromCurrencyDropdown"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/tvTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to"
+        app:layout_constraintStart_toStartOf="@+id/toCurrencyDropdown"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27" />
+
+    <Spinner
+        android:id="@+id/fromCurrencyDropdown"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/currency_codes"
+        android:padding="15dp"
+        android:layout_marginTop="18dp"
         android:layout_marginHorizontal="18dp"
         android:textSize="14sp"
         android:hint="@string/from"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/switchBtn"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/tvFrom"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/fromCurrencyDropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:cursorVisible="false"
-            android:imeOptions="actionDone"
-            android:inputType="none|textNoSuggestions"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/switchBtn"
@@ -50,34 +64,23 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/arrow_range_48px"
         android:contentDescription="to switch currencies"
-        app:layout_constraintStart_toEndOf="@+id/fromCurrencyLayout"
-        app:layout_constraintEnd_toStartOf="@+id/toCurrencyLayout"
-        app:layout_constraintTop_toBottomOf="@+id/title"/>
+        app:layout_constraintStart_toEndOf="@+id/fromCurrencyDropdown"
+        app:layout_constraintEnd_toStartOf="@+id/toCurrencyDropdown"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/toCurrencyLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <Spinner
+        android:id="@+id/toCurrencyDropdown"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/currency_codes"
+        android:padding="15dp"
+        android:layout_marginTop="18dp"
         android:layout_marginHorizontal="18dp"
         android:textSize="14sp"
-        android:hint="@string/to"
         app:layout_constraintStart_toEndOf="@+id/switchBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/tvTo"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/toCurrencyDropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:cursorVisible="false"
-            android:imeOptions="actionDone"
-            android:inputType="none|textNoSuggestions"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fromAmountLayout"
@@ -88,7 +91,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toStartOf="@+id/toAmountLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromCurrencyLayout">
+        app:layout_constraintTop_toBottomOf="@+id/fromCurrencyDropdown">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fromAmountET"
@@ -113,7 +116,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fromAmountLayout"
-        app:layout_constraintTop_toBottomOf="@+id/toCurrencyLayout">
+        app:layout_constraintTop_toBottomOf="@+id/toCurrencyDropdown">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/toAmountET"
@@ -129,7 +132,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/saveBundleBtn"
+        android:id="@+id/detailsBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -138,5 +141,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toAmountLayout" />
+
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/loading_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/error_layout"
+        layout="@layout/error_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

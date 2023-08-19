@@ -1,4 +1,4 @@
-package com.example.data.remote
+package com.example.currencyapplication.di
 
 import com.example.domain.repo.CurrencyRepositoryContract
 import com.example.domain.useCase.GetHistoricalDataUseCase

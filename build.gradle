@@ -74,7 +74,7 @@ buildscript {
         gradle_build_tools = '7.2.1'
         // https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google
 
-        hilt_version = '2.41'
+        hilt_version = '2.47'
         // https://github.com/google/dagger/releases
 
         jsonTest = '20220320'
