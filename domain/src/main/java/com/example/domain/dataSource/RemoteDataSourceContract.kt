@@ -1,4 +1,4 @@
-package com.example.data.remote
+package com.example.domain.dataSource
 
 import com.example.domain.entity.HistoricalData
 import com.example.domain.entity.LatestRate

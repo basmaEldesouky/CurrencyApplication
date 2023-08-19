@@ -2,8 +2,7 @@ package com.example.data.repo
 
 import com.example.common.Resource
 import com.example.data.BuildConfig
-import com.example.data.remote.RemoteDataSourceContract
-import com.example.data.remote.RemoteServices
+import com.example.domain.dataSource.RemoteDataSourceContract
 import com.example.domain.entity.HistoricalData
 import com.example.domain.entity.LatestRate
 import com.example.domain.entity.Symbols

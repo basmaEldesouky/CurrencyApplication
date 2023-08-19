@@ -1,11 +1,13 @@
 package com.example.data.remote
 
+import com.example.domain.dataSource.RemoteDataSourceContract
 import com.example.domain.entity.HistoricalData
 import com.example.domain.entity.LatestRate
 import com.example.domain.entity.Symbols
 import javax.inject.Inject
 
-class RemoteDataSourceImp @Inject constructor(private val remoteServices: RemoteServices): RemoteDataSourceContract {
+class RemoteDataSourceImp @Inject constructor(private val remoteServices: RemoteServices):
+    RemoteDataSourceContract {
 
     override suspend fun getSymbols(apiKey: Long): Symbols {
        return remoteServices.getSymbols(apiKey)
