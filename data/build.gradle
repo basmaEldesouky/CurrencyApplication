@@ -49,7 +49,6 @@ dependencies {
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation project(path: ':base')
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     //okhttp

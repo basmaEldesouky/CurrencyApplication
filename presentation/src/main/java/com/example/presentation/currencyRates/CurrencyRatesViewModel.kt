@@ -7,14 +7,12 @@ import com.example.domain.entity.HistoricalData
 import com.example.domain.entity.LatestRate
 import com.example.domain.useCase.GetHistoricalDataUseCase
 import com.example.domain.useCase.GetLatestRatesUseCase
-import com.example.presentation.currencyConversion.CurrencyConversionViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.round
 
 @HiltViewModel
 class CurrencyRatesViewModel @Inject constructor(
@@ -29,10 +27,10 @@ class CurrencyRatesViewModel @Inject constructor(
     val latestRates: StateFlow<LatestRate?> = _latestRates
 
 
-    fun getHistoricalData(date: String, toCurrency: String, fromCurrency: String, format: Int){
+    fun getHistoricalData(date: String, baseCurrency: String, fromCurrency: String, toCurrency: String,  format: Int){
         viewModelScope.launch{
             try {
-                getHistoricalDataUseCase.invoke(date, toCurrency, fromCurrency, format)
+                getHistoricalDataUseCase.invoke(date, baseCurrency, toCurrency, format)
                     .onStart { emit(Resource.Loading) }
                     .collect {
                         when (it) {
@@ -46,10 +44,10 @@ class CurrencyRatesViewModel @Inject constructor(
         }
     }
 
-    fun getLatestRates(toCurrency: String, fromCurrency: String, format: Int){
+    fun getLatestRates(baseCurrency: String, fromCurrency: String, toCurrency: String, format: Int){
         viewModelScope.launch{
             try {
-                getLatestRatesUseCase.invoke(toCurrency, fromCurrency, format)
+                getLatestRatesUseCase.invoke(baseCurrency, toCurrency, format)
                     .onStart { emit(Resource.Loading) }
                     .collect {
                         when (it) {

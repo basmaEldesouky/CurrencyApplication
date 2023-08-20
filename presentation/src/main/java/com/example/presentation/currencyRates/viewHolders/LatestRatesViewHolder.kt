@@ -4,16 +4,13 @@ package com.example.presentation.currencyRates.viewHolders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entity.RatesX
 import com.example.presentation.databinding.ItemLatestRatesBinding
+import kotlin.math.round
 
 class LatestRatesViewHolder(private val itemBinding: ItemLatestRatesBinding): RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(rates: RatesX) {
-        itemBinding.tvCurrencySymbol.text = "AFN"
-        itemBinding.tvCurrencyRate.text = rates.AFN.toString()
-    }
-
-    private fun getRateForCurrency(currency: String, rates: RatesX): Double? {
-        val exchangeRateMap = mapOf(
+    private lateinit var exchangeRateMap: Map<String, Double?>
+    fun bind(rates: RatesX, fromCurrency: String, popularCurrencies: String) {
+        exchangeRateMap = mapOf(
             "AED" to rates.AED, "AFN" to rates.AFN, "ALL" to rates.ALL, "AMD" to rates.AMD, "ANG" to rates.ANG, "AOA" to rates.AOA,
             "ARS" to rates.ARS, "AUD" to rates.AUD, "AWG" to rates.AWG, "AZN" to rates.AZN, "BAM" to rates.BAM, "BBD" to rates.BBD,
             "BDT" to rates.BDT, "BGN" to rates.BGN, "BHD" to rates.BHD, "BIF" to rates.BIF, "BMD" to rates.BMD, "BND" to rates.BND,
@@ -45,11 +42,18 @@ class LatestRatesViewHolder(private val itemBinding: ItemLatestRatesBinding): Re
             "ZMK" to rates.ZMK, "ZMW" to rates.ZMW, "ZWL" to rates.ZWL
         )
 
-        val symbol = currency.split(",")
+        val symbol = popularCurrencies.trim().split(",")
 
-        val firstRate = exchangeRateMap[symbol[0]]
-        val secondRate = exchangeRateMap[symbol[1]]
-        return firstRate?.let { 1 / it.times(secondRate!!) }
+        exchangeRateMap.forEach { (currencyCode, exchangeRate) ->
+            if (currencyCode in symbol) {
+                val firstRate = exchangeRateMap[fromCurrency]
+                val secondRate = exchangeRateMap[currencyCode]
+                val convertedCurrency = firstRate?.let { 1 / it.times(secondRate ?: 1.0) }
+                val formattedCurrency = round(convertedCurrency!!.toFloat() * 100) / 100
+
+                itemBinding.tvCurrencySymbol.text = currencyCode
+                itemBinding.tvCurrencyRate.text = formattedCurrency.toString()
+            }
+        }
     }
-
 }

@@ -96,11 +96,14 @@ class CurrencyConversionViewModel @Inject constructor(
              "ZMK" to rates.ZMK, "ZMW" to rates.ZMW, "ZWL" to rates.ZWL
         )
 
-        val symbol = currency.split(",")
+        val symbol = currency.trim().split(",")
 
         val firstRate = exchangeRateMap[symbol[0]]
         val secondRate = exchangeRateMap[symbol[1]]
-        return firstRate?.let { 1 / it.times(secondRate!!) }
+        if(firstRate != null && secondRate != null){
+           return firstRate.let { 1 / it.times(secondRate) }
+        }
+        return 0.0
     }
 
 

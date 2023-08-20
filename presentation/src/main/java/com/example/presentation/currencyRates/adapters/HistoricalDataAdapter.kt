@@ -9,7 +9,7 @@ import com.example.presentation.currencyRates.viewHolders.HistoricalDataViewHold
 import com.example.presentation.databinding.ItemHistoricalDataBinding
 
 
-class HistoricalDataAdapter: ListAdapter<RatesX, HistoricalDataViewHolder>(RatesDiffCallback()) {
+class HistoricalDataAdapter(var fromCurrency: String, var toCurrency: String): ListAdapter<RatesX, HistoricalDataViewHolder>(RatesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoricalDataViewHolder {
         val itemBinding = ItemHistoricalDataBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +17,7 @@ class HistoricalDataAdapter: ListAdapter<RatesX, HistoricalDataViewHolder>(Rates
     }
 
     override fun onBindViewHolder(holder: HistoricalDataViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), fromCurrency, toCurrency)
     }
 
     class RatesDiffCallback : DiffUtil.ItemCallback<RatesX>() {

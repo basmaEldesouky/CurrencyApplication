@@ -42,135 +42,33 @@ class CurrencyConversionViewModelTest {
         )
     }
 
-    /*@Test
-    fun test_fetch_challenges_list_success() = runBlockingTest {
+    @Test
+    fun test_fetch_latest_rates_success() = runBlockingTest {
 
-        val challenges = TestDataGenerator.generateListOfChallengeItem()
-        val challengesFlow = flowOf(Resource.Success(challenges))
+        val latestRates = TestDataGenerator.generateLatestRates()
+        val latestRatesFlow = flowOf(Resource.Success(latestRates))
 
         // Given
-        coEvery { GetLatestRatesUseCase.invoke() } returns challengesFlow
+        coEvery { getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) } returns latestRatesFlow
 
         // When && Assertions
-        currencyConversionViewModel.uiState.test {
-            currencyConversionViewModel.setEvent(ChallengesListContract.Event.OnFetchChallenges)
-            // Expect Resource.Idle from initial state
-            Truth.assertThat(expectItem()).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Idle,
-                )
-            )
-            // Expect Resource.Loading
-            Truth.assertThat(expectItem()).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Loading,
-                )
-            )
-            // Expect Resource.Success
-            val expected = expectItem()
-            val expectedData =
-                (expected.challengesState as ChallengesListContract.ChallengesState.Success).data
-            Truth.assertThat(expected).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Success(
-                        generalChallengeItemUiMapper.fromList(challenges)
-                    ),
-                )
-            )
-            Truth.assertThat(expectedData)
-                .containsExactlyElementsIn(generalChallengeItemUiMapper.fromList(challenges))
-
-
-            //Cancel and ignore remaining
-            cancelAndIgnoreRemainingEvents()
-        }
-
+       currencyConversionViewModel.getCurrencyRates(TestDataGenerator.fromAmount, TestDataGenerator.base, TestDataGenerator.currencyList)
 
         // Then
-        coVerify { GetLatestRatesUseCase.invoke() }
+        coVerify { getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) }
     }
 
     @Test
-    fun test_fetch_challenges_list_fail() = runBlockingTest {
+    fun test_fetch_latest_rates_fail() = runBlockingTest {
 
-        val challengesErrorFlow = flowOf(Resource.Error(Exception("error")))
+        val latestRatesFlow = flowOf(Resource.Error(Exception("error")))
 
         // Given
-        coEvery { GetLatestRatesUseCase.invoke() } returns challengesErrorFlow
-
-        // When && Assertions (UiState)
-        currencyConversionViewModel.uiState.test {
-            // Call method inside of this scope
-            currencyConversionViewModel.setEvent(ChallengesListContract.Event.OnFetchChallenges)
-            // Expect Resource.Idle from initial state
-            Truth.assertThat(expectItem()).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Idle,
-                    selectedChallenge = null
-                )
-            )
-            // Expect Resource.Loading
-            Truth.assertThat(expectItem()).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Loading,
-                    selectedChallenge = null
-                )
-            )
-            // Cancel and ignore remaining
-            cancelAndIgnoreRemainingEvents()
-        }
-
-        // When && Assertions (UiEffect)
-        currencyConversionViewModel.effect.test {
-            // Expect ShowError Effect
-            val expected = expectItem()
-            val expectedData = (expected as ChallengesListContract.Effect.ShowError).message
-            Truth.assertThat(expected).isEqualTo(
-                ChallengesListContract.Effect.ShowError("error")
-            )
-            Truth.assertThat(expectedData).isEqualTo("error")
-            // Cancel and ignore remaining
-            cancelAndIgnoreRemainingEvents()
-        }
-
-
-        // Then
-        coVerify { GetLatestRatesUseCase.invoke() }
-    }
-    @Test
-    fun test_select_challenge() = runBlockingTest {
-
-        val generalChallengeItem = TestDataGenerator.generateGeneralChallengeItem()
-
-        // Given (no-op)
+        coEvery { getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) } returns latestRatesFlow
 
         // When && Assertions
-        currencyConversionViewModel.uiState.test {
-            // Call method inside of this scope
-            // For more info, see https://github.com/cashapp/turbine/issues/19
-            currencyConversionViewModel.setEvent(ChallengesListContract.Event.OnChallengeClicked(challenge = generalChallengeItemUiMapper.from(generalChallengeItem)))
-            // Expect Resource.Idle from initial state
-            Truth.assertThat(expectItem()).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Idle,
-                    selectedChallenge = null
-                )
-            )
-            // Expect Resource.Success
-            val expected = expectItem()
-            val expectedData = expected.selectedChallenge
-            Truth.assertThat(expected).isEqualTo(
-                ChallengesListContract.State(
-                    challengesState = ChallengesListContract.ChallengesState.Idle,
-                    selectedChallenge  = generalChallengeItemUiMapper.from(generalChallengeItem)
-                )
-            )
-            Truth.assertThat(expectedData).isEqualTo(generalChallengeItemUiMapper.from(generalChallengeItem))
-            // Cancel and ignore remaining
-            cancelAndIgnoreRemainingEvents()
-        }
-
-
-        // Then (no-op)
+        currencyConversionViewModel.getCurrencyRates(TestDataGenerator.fromAmount, TestDataGenerator.base, TestDataGenerator.currencyList)
+        // Then
+        coVerify { getLatestRatesUseCase.invoke(TestDataGenerator.base, TestDataGenerator.currencyList, TestDataGenerator.format) }
     }
-*/}
+}

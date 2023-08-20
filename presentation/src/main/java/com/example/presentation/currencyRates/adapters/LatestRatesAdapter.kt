@@ -8,7 +8,7 @@ import com.example.domain.entity.RatesX
 import com.example.presentation.currencyRates.viewHolders.LatestRatesViewHolder
 import com.example.presentation.databinding.ItemLatestRatesBinding
 
-class LatestRatesAdapter: ListAdapter<RatesX, LatestRatesViewHolder>(RatesDiffCallback()) {
+class LatestRatesAdapter(var fromCurrency: String, var popularCurrencies: String): ListAdapter<RatesX, LatestRatesViewHolder>(RatesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestRatesViewHolder {
         val itemBinding = ItemLatestRatesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,7 +16,7 @@ class LatestRatesAdapter: ListAdapter<RatesX, LatestRatesViewHolder>(RatesDiffCa
     }
 
     override fun onBindViewHolder(holder: LatestRatesViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), fromCurrency, popularCurrencies)
     }
 
     class RatesDiffCallback : DiffUtil.ItemCallback<RatesX>() {

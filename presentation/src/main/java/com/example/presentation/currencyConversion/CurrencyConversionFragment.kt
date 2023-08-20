@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.common.Constants
 import com.example.common.utils.NetworkUtils.isNetworkAvailable
 import com.example.common.utils.viewBinding
 import com.example.presentation.R
@@ -33,7 +34,6 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
 
         binding.switchBtn.setOnClickListener{
             handleUiWhenSwitching()
-            convertCurrencies(binding.fromAmountET.toString())
         }
 
         binding.fromAmountET.addTextChangedListener(object : TextWatcher {
@@ -48,7 +48,7 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
 
         binding.detailsBtn.setOnClickListener{
             val bundle = bundleOf("fromCurrency" to binding.fromCurrencyDropdown.selectedItem.toString(),
-                "toCurrency" to binding.fromCurrencyDropdown.selectedItem.toString())
+                "toCurrency" to binding.toCurrencyDropdown.selectedItem.toString())
             findNavController().navigate(
                 R.id.action_currency_conversion_fragment_to_currency_rates_fragment, bundle)
         }
@@ -66,16 +66,13 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
                 viewModel.conversion.collect { event ->
                     when(event) {
                         is CurrencyConversionViewModel.CurrencyEvent.Loading -> {
-                            //binding.loadingLayout.root.isVisible = true
                             binding.mainLayout.isVisible = false
                         }
                         is CurrencyConversionViewModel.CurrencyEvent.Success -> {
-                            //binding.loadingLayout.root.isVisible = false
                             binding.mainLayout.isVisible = true
                             binding.toAmountET.setText(event.resultText)
                         }
                         is CurrencyConversionViewModel.CurrencyEvent.Failure -> {
-                            //binding.loadingLayout.root.isVisible = false
                             binding.errorLayout.root.isVisible = true
                             binding.mainLayout.isVisible = false
                         }
@@ -91,9 +88,9 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
             Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_LONG).show()
         }else {
             val fromSymbol = binding.fromCurrencyDropdown.selectedItem.toString()
-            val toSymbol = binding.fromCurrencyDropdown.selectedItem.toString()
-            val symbolsStr = "$fromSymbol, $toSymbol"
-            viewModel.getCurrencyRates(amount, "EUR", symbolsStr)
+            val toSymbol = binding.toCurrencyDropdown.selectedItem.toString()
+            val symbolsStr = "$fromSymbol,$toSymbol"
+            viewModel.getCurrencyRates(amount, Constants.base, symbolsStr)
         }
     }
 
@@ -103,6 +100,7 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
 
         binding.fromCurrencyDropdown.setSelection(toSelectedItemPosition)
         binding.toCurrencyDropdown.setSelection(fromSelectedItemPosition)
+        convertCurrencies(binding.fromAmountET.toString())
     }
 
     private fun handleUiWhenRetrying(){
