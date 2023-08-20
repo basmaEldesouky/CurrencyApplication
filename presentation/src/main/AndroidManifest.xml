@@ -4,13 +4,16 @@
 
     <application>
         <activity
-            android:name=".currencyRates.CurrencyRatesActivity"
+            android:name=".CurrencyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".currencyRates.CurrencyRatesFragment"
             android:exported="false"
             android:label="@string/title_activity_currency_rates"
             android:resizeableActivity="true"
             tools:targetApi="24" />
         <activity
-            android:name=".currencyConversion.CurrencyConversionActivity"
+            android:name=".currencyConversion.CurrencyConversionFragment"
             android:exported="false"
             android:label="@string/title_activity_currency_conversion" />
     </application>

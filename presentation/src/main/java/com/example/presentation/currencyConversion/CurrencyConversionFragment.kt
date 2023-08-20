@@ -1,29 +1,35 @@
 package com.example.presentation.currencyConversion
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.base.BaseActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.common.utils.NetworkUtils.isNetworkAvailable
-import com.example.presentation.databinding.ActivityCurrencyConversionBinding
+import com.example.common.utils.viewBinding
+import com.example.presentation.R
+import com.example.presentation.databinding.FragmentCurrencyConversionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class CurrencyConversionActivity(): BaseActivity<ActivityCurrencyConversionBinding>() {
+class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversion) {
 
-    override val bindLayout: (LayoutInflater) -> ActivityCurrencyConversionBinding
-        get() = ActivityCurrencyConversionBinding::inflate
+    private val binding by viewBinding(FragmentCurrencyConversionBinding::bind)
 
     private val viewModel: CurrencyConversionViewModel by viewModels()
-    override fun prepareView() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.switchBtn.setOnClickListener{
             handleUiWhenSwitching()
             convertCurrencies(binding.fromAmountET.toString())
@@ -40,7 +46,8 @@ class CurrencyConversionActivity(): BaseActivity<ActivityCurrencyConversionBindi
         })
 
         binding.detailsBtn.setOnClickListener{
-
+            findNavController().navigate(
+                R.id.action_currency_conversion_fragment_to_currency_rates_fragment)
         }
 
         binding.errorLayout.btnRetry.setOnClickListener{
@@ -77,8 +84,8 @@ class CurrencyConversionActivity(): BaseActivity<ActivityCurrencyConversionBindi
     }
 
     private fun convertCurrencies(amount: String){
-        if (!isNetworkAvailable(this)) {
-            Toast.makeText(applicationContext, "No Internet Connection", Toast.LENGTH_LONG).show()
+        if (!isNetworkAvailable(requireContext())) {
+            Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_LONG).show()
         }else {
             val fromSymbol = binding.fromCurrencyDropdown.selectedItem.toString()
             val toSymbol = binding.fromCurrencyDropdown.selectedItem.toString()
@@ -96,8 +103,8 @@ class CurrencyConversionActivity(): BaseActivity<ActivityCurrencyConversionBindi
     }
 
     private fun handleUiWhenRetrying(){
-        if (!isNetworkAvailable(this)) {
-            Toast.makeText(applicationContext, "No Internet Connection", Toast.LENGTH_LONG).show()
+        if (!isNetworkAvailable(requireContext())) {
+            Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_LONG).show()
         }else {
             binding.errorLayout.root.isVisible = false
             binding.mainLayout.isVisible = true

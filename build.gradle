@@ -144,13 +144,13 @@ buildscript {
         androidx_lifecycle_extensions = '2.2.0'
         // https://developer.android.com/jetpack/androidx/releases/lifecycle // DEPRECATED
 
-        androidx_lifecycle_livedata_ktx = '2.5.1'
+        androidx_lifecycle_livedata_ktx = '2.6.1'
         // https://developer.android.com/jetpack/androidx/releases/lifecycle
 
-        androidx_lifecycle_runtime_ktx = '2.5.1'
+        androidx_lifecycle_runtime_ktx = '2.6.1'
         // https://developer.android.com/kotlin/ktx#lifecycle
 
-        androidx_lifecycle_viewmodel_ktx = '2.5.1'
+        androidx_lifecycle_viewmodel_ktx = '2.6.1'
         // https://developer.android.com/jetpack/androidx/releases/lifecycle
 
 
