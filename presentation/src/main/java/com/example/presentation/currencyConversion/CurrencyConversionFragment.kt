@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,8 +47,10 @@ class CurrencyConversionFragment(): Fragment(R.layout.fragment_currency_conversi
         })
 
         binding.detailsBtn.setOnClickListener{
+            val bundle = bundleOf("fromCurrency" to binding.fromCurrencyDropdown.selectedItem.toString(),
+                "toCurrency" to binding.fromCurrencyDropdown.selectedItem.toString())
             findNavController().navigate(
-                R.id.action_currency_conversion_fragment_to_currency_rates_fragment)
+                R.id.action_currency_conversion_fragment_to_currency_rates_fragment, bundle)
         }
 
         binding.errorLayout.btnRetry.setOnClickListener{

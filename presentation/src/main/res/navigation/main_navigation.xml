@@ -13,7 +13,16 @@
 
         <action
             android:id="@+id/action_currency_conversion_fragment_to_currency_rates_fragment"
-            app:destination="@id/currency_rates_fragment" />
+            app:destination="@id/currency_rates_fragment">
+
+            <argument
+                android:name="fromCurrency"
+                app:argType="string" />
+            <argument
+                android:name="toCurrency"
+                app:argType="string" />
+
+        </action>
 
     </fragment>
 
